@@ -38,23 +38,7 @@ tailwind.config = {
 html { height: 100%; }
 body { height: 100%; margin: 0; }
 
-/* Loading screen */
-.loading-screen {
-  position: fixed; inset: 0; z-index: 9999;
-  background: #0a0a0f;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-.loading-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-.loading-bar-track {
-  width: 320px; height: 6px; background: #1a1a24;
-  border: 1px solid #c8a84e33; border-radius: 3px; overflow: hidden; margin-top: 24px;
-}
-.loading-bar-fill {
-  height: 100%; width: 0; background: linear-gradient(90deg, #8b1a1a, #c8a84e);
-  border-radius: 3px; transition: width 0.3s ease;
-}
+
 
 /* Vignette */
 .vignette {
@@ -320,27 +304,20 @@ html { scroll-behavior: smooth; }
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full bg-abyss text-bone overflow-auto">
-  <!-- Loading Screen -->
-  <div class="loading-screen" id="loadingScreen">
-   <p class="font-cinzel text-gold text-xl tracking-widest mb-2" style="text-shadow: 0 0 15px rgba(200,168,78,0.4);">Entering Wraeclast...</p>
-   <div class="loading-bar-track">
-    <div class="loading-bar-fill" id="loadingBar"></div>
-   </div>
-   <p class="font-crimson text-ash text-sm mt-4 italic">Prepare yourself, Exile.</p>
-  </div><!-- Vignette -->
+  <!-- Vignette -->
   <div class="vignette"></div><!-- Noise -->
   <div class="noise-overlay"></div><!-- Fog -->
   <div class="fog-layer"></div><!-- Particles -->
   <canvas id="particles-canvas"></canvas><!-- Cursor Glow -->
   <div class="cursor-glow" id="cursorGlow"></div><!-- Audio Toggle --> <button class="audio-toggle" id="audioToggle" aria-label="Toggle ambient sound"> <i data-lucide="volume-x" style="width:18px;height:18px;"></i> </button> <!-- Main Content -->
-  <div class="relative z-10 w-full" id="mainContent" style="opacity:0; transition: opacity 0.6s ease;">
+  <div class="relative z-10 w-full" id="mainContent">
    <!-- NAVIGATION TABS -->
-   <nav class="fixed top-0 left-0 right-0 z-95 backdrop-blur-sm" style="background: rgba(10,10,15,0.85); border-bottom: 1px solid rgba(200,168,78,0.15); padding-top: 0;">
+   <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm" style="background: rgba(10,10,15,0.85); border-bottom: 1px solid rgba(200,168,78,0.15); padding-top: 0; pointer-events: auto;">
     <div class="max-w-5xl mx-auto px-4 flex items-center justify-between h-16">
      <div class="font-cinzel text-gold text-lg font-bold tracking-wider" id="navTitle">
       Chewji
      </div>
-     <div class="flex items-center gap-1"><button class="nav-tab active px-4 py-2 font-cinzel text-sm tracking-wider transition-all" data-section="heroSection" style="color:#c8a84e;border-bottom:2px solid #c8a84e;">Home</button> <button class="nav-tab px-4 py-2 font-cinzel text-sm tracking-wider transition-all" data-section="servicesSection" style="color:#9a9a8e;border-bottom:2px solid transparent;">Services</button> <button class="nav-tab px-4 py-2 font-cinzel text-sm tracking-wider transition-all" data-section="pricingSection" style="color:#9a9a8e;border-bottom:2px solid transparent;">Pricing</button> <button class="nav-tab px-4 py-2 font-cinzel text-sm tracking-wider transition-all" data-section="contactSection" style="color:#9a9a8e;border-bottom:2px solid transparent;">Contact</button> <button id="langToggle" class="ml-4 px-3 py-2 rounded text-white font-cinzel text-xs font-semibold tracking-wider hover:shadow-lg transition-all" style="background: linear-gradient(180deg, #2a5a2a, #1a3a1a); border: 1px solid rgba(200,168,78,0.2);"> EN / VI </button> <a href="https://discord.gg/SYHrzrgctz" target="_blank" rel="noopener noreferrer" class="ml-2 px-3 py-2 bg-gradient-to-r from-blue-500 to-blue-600 rounded text-white font-cinzel text-xs font-semibold tracking-wider hover:shadow-lg transition-all"> Join Discord </a>
+     <div class="flex items-center gap-1"><button class="nav-tab active px-4 py-2 font-cinzel text-sm tracking-wider transition-all cursor-pointer" data-section="heroSection" style="color:#c8a84e;border-bottom:2px solid #c8a84e;">Home</button> <button class="nav-tab px-4 py-2 font-cinzel text-sm tracking-wider transition-all cursor-pointer" data-section="servicesSection" style="color:#9a9a8e;border-bottom:2px solid transparent;">Services</button> <button class="nav-tab px-4 py-2 font-cinzel text-sm tracking-wider transition-all cursor-pointer" data-section="pricingSection" style="color:#9a9a8e;border-bottom:2px solid transparent;">Pricing</button> <button class="nav-tab px-4 py-2 font-cinzel text-sm tracking-wider transition-all cursor-pointer" data-section="contactSection" style="color:#9a9a8e;border-bottom:2px solid transparent;">Contact</button> <button id="langToggle" class="ml-4 px-3 py-2 rounded text-white font-cinzel text-xs font-semibold tracking-wider hover:shadow-lg transition-all cursor-pointer" style="background: linear-gradient(180deg, #2a5a2a, #1a3a1a); border: 1px solid rgba(200,168,78,0.2);">EN / VI</button> <a href="https://discord.gg/SYHrzrgctz" target="_blank" rel="noopener noreferrer" class="ml-2 px-3 py-2 bg-gradient-to-r from-blue-500 to-blue-600 rounded text-white font-cinzel text-xs font-semibold tracking-wider hover:shadow-lg transition-all">Join Discord</a>
      </div>
     </div>
    </nav><!-- HERO SECTION -->
@@ -412,7 +389,7 @@ html { scroll-behavior: smooth; }
    <section class="py-20 px-4 w-full reveal-section" id="servicesSection">
     <div class="max-w-5xl mx-auto">
      <div class="text-center mb-12">
-      <h2 class="font-cinzel text-3xl md:text-4xl text-gold font-semibold tracking-wide">Services</h2>
+      <h2 class="font-cinzel text-3xl md:text-4xl text-gold font-semibold tracking-wide" id="servicesTitle">Services</h2>
       <div class="rune-divider mt-4 max-w-xs mx-auto">
        <div class="line"></div>
        <div class="diamond"></div>
@@ -424,8 +401,8 @@ html { scroll-behavior: smooth; }
       <div class="service-card p-6 rounded-sm">
        <div class="gem-icon mb-4"><i data-lucide="graduation-cap" style="width:22px;height:22px;color:#cc3333;"></i>
        </div>
-       <h3 class="font-cinzel text-gold text-lg font-semibold mb-2">1-on-1 Coaching</h3>
-       <p class="font-crimson text-ash text-sm leading-relaxed">Personalized guidance. Learn the mechanics, the economy, the hidden tricks. Level up your game faster than any guide could teach.</p>
+       <h3 class="font-cinzel text-gold text-lg font-semibold mb-2" id="card1Title">1-on-1 Coaching</h3>
+       <p class="font-crimson text-ash text-sm leading-relaxed" id="card1Desc">Personalized guidance. Learn the mechanics, the economy, the hidden tricks. Level up your game faster than any guide could teach.</p>
        <div class="mt-4 pt-3" style="border-top:1px solid rgba(200,168,78,0.1);">
         <span class="font-cinzel text-gold text-xs tracking-wider">▸ ALL SKILL LEVELS</span>
        </div>
@@ -433,8 +410,8 @@ html { scroll-behavior: smooth; }
       <div class="service-card p-6 rounded-sm">
        <div class="gem-icon mb-4"><i data-lucide="hammer" style="width:22px;height:22px;color:#cc3333;"></i>
        </div>
-       <h3 class="font-cinzel text-gold text-lg font-semibold mb-2">Crafting Service</h3>
-       <p class="font-crimson text-ash text-sm leading-relaxed">From harvest crafts to mirror-tier items. I'll handle the RNG so you don't have to. Clean results, fair prices, zero risk.</p>
+       <h3 class="font-cinzel text-gold text-lg font-semibold mb-2" id="card2Title">Crafting Service</h3>
+       <p class="font-crimson text-ash text-sm leading-relaxed" id="card2Desc">From harvest crafts to mirror-tier items. I'll handle the RNG so you don't have to. Clean results, fair prices, zero risk.</p>
        <div class="mt-4 pt-3" style="border-top:1px solid rgba(200,168,78,0.1);">
         <span class="font-cinzel text-gold text-xs tracking-wider">▸ GG GEAR GUARANTEED</span>
        </div>
@@ -442,8 +419,8 @@ html { scroll-behavior: smooth; }
       <div class="service-card p-6 rounded-sm">
        <div class="gem-icon mb-4"><i data-lucide="skull" style="width:22px;height:22px;color:#cc3333;"></i>
        </div>
-       <h3 class="font-cinzel text-gold text-lg font-semibold mb-2">Boss &amp; Map Carry</h3>
-       <p class="font-crimson text-ash text-sm leading-relaxed">Uber bosses, feared encounters, deep delves. Witness them fall while you collect the loot. Fast, clean, devastating.</p>
+       <h3 class="font-cinzel text-gold text-lg font-semibold mb-2" id="card3Title">Boss &amp; Map Carry</h3>
+       <p class="font-crimson text-ash text-sm leading-relaxed" id="card3Desc">Uber bosses, feared encounters, deep delves. Witness them fall while you collect the loot. Fast, clean, devastating.</p>
        <div class="mt-4 pt-3" style="border-top:1px solid rgba(200,168,78,0.1);">
         <span class="font-cinzel text-gold text-xs tracking-wider">▸ ALL ENDGAME CONTENT</span>
        </div>
@@ -451,8 +428,8 @@ html { scroll-behavior: smooth; }
       <div class="service-card p-6 rounded-sm">
        <div class="gem-icon mb-4"><i data-lucide="coins" style="width:22px;height:22px;color:#cc3333;"></i>
        </div>
-       <h3 class="font-cinzel text-gold text-lg font-semibold mb-2">Currency Farming</h3>
-       <p class="font-crimson text-ash text-sm leading-relaxed">Learn the strategies that generate divines per hour. MF builds, atlas strategies, and market manipulation secrets revealed.</p>
+       <h3 class="font-cinzel text-gold text-lg font-semibold mb-2" id="card4Title">Currency Farming</h3>
+       <p class="font-crimson text-ash text-sm leading-relaxed" id="card4Desc">Learn the strategies that generate divines per hour. MF builds, atlas strategies, and market manipulation secrets revealed.</p>
        <div class="mt-4 pt-3" style="border-top:1px solid rgba(200,168,78,0.1);">
         <span class="font-cinzel text-gold text-xs tracking-wider">▸ MAXIMIZE PROFIT</span>
        </div>
@@ -460,8 +437,8 @@ html { scroll-behavior: smooth; }
       <div class="service-card p-6 rounded-sm">
        <div class="gem-icon mb-4"><i data-lucide="wrench" style="width:22px;height:22px;color:#cc3333;"></i>
        </div>
-       <h3 class="font-cinzel text-gold text-lg font-semibold mb-2">Build Optimization</h3>
-       <p class="font-crimson text-ash text-sm leading-relaxed">Dying too much? DPS too low? I'll audit your build, fix your tree, gear, and gems. Turn a struggling exile into an unstoppable force.</p>
+       <h3 class="font-cinzel text-gold text-lg font-semibold mb-2" id="card5Title">Build Optimization</h3>
+       <p class="font-crimson text-ash text-sm leading-relaxed" id="card5Desc">Dying too much? DPS too low? I'll audit your build, fix your tree, gear, and gems. Turn a struggling exile into an unstoppable force.</p>
        <div class="mt-4 pt-3" style="border-top:1px solid rgba(200,168,78,0.1);">
         <span class="font-cinzel text-gold text-xs tracking-wider">▸ META &amp; OFF-META</span>
        </div>
@@ -476,7 +453,7 @@ html { scroll-behavior: smooth; }
       <div class="corner-ornament corner-tr"></div>
       <div class="corner-ornament corner-bl"></div>
       <div class="corner-ornament corner-br"></div>
-      <h2 class="font-cinzel text-2xl md:text-3xl text-gold font-semibold tracking-wide text-center mb-8">Character Stats</h2>
+      <h2 class="font-cinzel text-2xl md:text-3xl text-gold font-semibold tracking-wide text-center mb-8" id="statsTitle">Character Stats</h2>
       <hr class="glow-sep mb-8">
       <div class="space-y-6">
        <div class="stat-row">
@@ -526,13 +503,13 @@ html { scroll-behavior: smooth; }
    <section class="py-20 px-4 w-full reveal-section" id="testimonialsSection">
     <div class="max-w-3xl mx-auto">
      <div class="text-center mb-12">
-      <h2 class="font-cinzel text-3xl md:text-4xl text-gold font-semibold tracking-wide">Battle Log</h2>
+      <h2 class="font-cinzel text-3xl md:text-4xl text-gold font-semibold tracking-wide" id="testimonialsTitle">Battle Log</h2>
       <div class="rune-divider mt-4 max-w-xs mx-auto">
        <div class="line"></div>
        <div class="diamond"></div>
        <div class="line"></div>
       </div>
-      <p class="font-crimson text-ash text-sm mt-3 italic">Whispers from fellow exiles</p>
+      <p class="font-crimson text-ash text-sm mt-3 italic" id="testimonialsSubtitle">Whispers from fellow exiles</p>
      </div>
      <div class="space-y-6" id="chatLog">
       <div class="chat-msg">
@@ -565,7 +542,7 @@ html { scroll-behavior: smooth; }
    <section class="py-20 px-4 w-full reveal-section" id="pricingSection">
     <div class="max-w-4xl mx-auto">
      <div class="text-center mb-12">
-      <h2 class="font-cinzel text-3xl md:text-4xl text-gold font-semibold tracking-wide">Vendor Window</h2>
+      <h2 class="font-cinzel text-3xl md:text-4xl text-gold font-semibold tracking-wide" id="pricingTitle">Vendor Window</h2>
       <div class="rune-divider mt-4 max-w-xs mx-auto">
        <div class="line"></div>
        <div class="diamond"></div>
@@ -576,7 +553,7 @@ html { scroll-behavior: smooth; }
       <div class="pricing-item p-8 text-center">
        <div class="gem-icon mx-auto mb-4"><i data-lucide="graduation-cap" style="width:22px;height:22px;color:#c8a84e;"></i>
        </div>
-       <h3 class="font-cinzel text-gold text-xl font-semibold mb-2">Coaching Session</h3>
+       <h3 class="font-cinzel text-gold text-xl font-semibold mb-2" id="coachingSessionTitle">Coaching Session</h3>
        <p class="font-cinzel text-3xl text-gold font-bold mb-3" id="coachingPrice">$25<span class="text-base text-ash">/hour</span></p>
        <hr class="glow-sep my-4">
        <ul class="font-crimson text-ash text-sm space-y-2 text-left">
@@ -589,7 +566,7 @@ html { scroll-behavior: smooth; }
       <div class="pricing-item p-8 text-center">
        <div class="gem-icon mx-auto mb-4"><i data-lucide="swords" style="width:22px;height:22px;color:#c8a84e;"></i>
        </div>
-       <h3 class="font-cinzel text-gold text-xl font-semibold mb-2">Custom Services</h3>
+       <h3 class="font-cinzel text-gold text-xl font-semibold mb-2" id="customServicesTitle">Custom Services</h3>
        <p class="font-cinzel text-3xl text-gold font-bold mb-3" id="servicePrice">$15<span class="text-base text-ash">+</span></p>
        <hr class="glow-sep my-4">
        <ul class="font-crimson text-ash text-sm space-y-2 text-left">
@@ -605,13 +582,13 @@ html { scroll-behavior: smooth; }
    </section><!-- CONTACT -->
    <section class="py-20 px-4 w-full reveal-section" id="contactSection">
     <div class="max-w-2xl mx-auto text-center">
-     <h2 class="font-cinzel text-3xl md:text-4xl text-gold font-semibold tracking-wide mb-3">Ready, Exile?</h2>
+     <h2 class="font-cinzel text-3xl md:text-4xl text-gold font-semibold tracking-wide mb-3" id="contactTitle">Ready, Exile?</h2>
      <div class="rune-divider mt-2 mb-8 max-w-xs mx-auto">
       <div class="line"></div>
       <div class="diamond"></div>
       <div class="line"></div>
      </div>
-     <p class="font-crimson text-ash text-lg mb-10">The atlas awaits. Let's conquer it together.</p>
+     <p class="font-crimson text-ash text-lg mb-10" id="contactText">The atlas awaits. Let's conquer it together.</p>
      <div class="mb-10">
       <button class="poe-btn text-base" id="contactCTA"> ⚔ Contact Me Now ⚔ </button>
      </div>
@@ -771,32 +748,6 @@ window.elementSdk.init({
   ]),
 });
 
-// === LOADING SCREEN ===
-const loadingBar = document.getElementById('loadingBar');
-const loadingScreen = document.getElementById('loadingScreen');
-const mainContent = document.getElementById('mainContent');
-let loadProgress = 0;
-
-// Auto-complete loading after 2 seconds
-setTimeout(() => {
-  if (loadProgress < 100) {
-    loadProgress = 100;
-    loadingBar.style.width = '100%';
-    setTimeout(() => {
-      loadingScreen.classList.add('hidden');
-      mainContent.style.opacity = '1';
-      initAnimations();
-    }, 300);
-  }
-}, 2000);
-
-const loadInterval = setInterval(() => {
-  if (loadProgress < 90) {
-    loadProgress += Math.random() * 15 + 8;
-    loadingBar.style.width = Math.min(loadProgress, 90) + '%';
-  }
-}, 200);
-
 // === PARTICLES ===
 const canvas = document.getElementById('particles-canvas');
 const ctx = canvas.getContext('2d');
@@ -871,6 +822,11 @@ function initAnimations() {
 
   document.querySelectorAll('.reveal-section').forEach(el => observer.observe(el));
 }
+
+// Start animations immediately
+initAnimations();
+
+// === SCROLL REVEAL ===
 
 // === CURSOR GLOW ===
 const cursorGlow = document.getElementById('cursorGlow');
@@ -974,26 +930,29 @@ document.getElementById('contactCTA').addEventListener('click', () => {
 });
 
 // === NAVIGATION TABS ===
-document.querySelectorAll('.nav-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    const sectionId = tab.getAttribute('data-section');
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-      
-      // Update active tab
-      document.querySelectorAll('.nav-tab').forEach(t => {
-        t.style.color = '#9a9a8e';
-        t.style.borderBottomColor = 'transparent';
-      });
-      tab.style.color = '#c8a84e';
-      tab.style.borderBottomColor = '#c8a84e';
-    }
+function setupNavTabs() {
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      const sectionId = tab.getAttribute('data-section');
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+        
+        // Update active tab
+        document.querySelectorAll('.nav-tab').forEach(t => {
+          t.style.color = '#9a9a8e';
+          t.style.borderBottomColor = 'transparent';
+        });
+        tab.style.color = '#c8a84e';
+        tab.style.borderBottomColor = '#c8a84e';
+      }
+    });
   });
-});
+}
 
 // Update active tab on scroll
-window.addEventListener('scroll', () => {
+function updateActiveTab() {
   const sections = ['heroSection', 'servicesSection', 'pricingSection', 'contactSection'];
   let currentSection = sections[0];
   
@@ -1013,7 +972,10 @@ window.addEventListener('scroll', () => {
       tab.style.borderBottomColor = 'transparent';
     }
   });
-});
+}
+
+window.addEventListener('scroll', updateActiveTab);
+setupNavTabs();
 
 // Init Lucide icons
 lucide.createIcons();
@@ -1110,10 +1072,40 @@ function updateLanguageDisplay() {
   document.getElementById('clientsVi').style.display = isEn ? 'none' : 'inline';
   document.getElementById('satisfaction').style.display = isEn ? 'inline' : 'none';
   document.getElementById('satisfactionVi').style.display = isEn ? 'none' : 'inline';
+  
+  // Services section
+  document.getElementById('servicesTitle').textContent = langData[currentLang].services;
+  document.getElementById('card1Title').textContent = langData[currentLang].coaching;
+  document.getElementById('card1Desc').textContent = langData[currentLang].coachingDesc;
+  document.getElementById('card2Title').textContent = langData[currentLang].crafting;
+  document.getElementById('card2Desc').textContent = langData[currentLang].craftingDesc;
+  document.getElementById('card3Title').textContent = langData[currentLang].boss;
+  document.getElementById('card3Desc').textContent = langData[currentLang].bossDesc;
+  document.getElementById('card4Title').textContent = langData[currentLang].currency;
+  document.getElementById('card4Desc').textContent = langData[currentLang].currencyDesc;
+  document.getElementById('card5Title').textContent = langData[currentLang].build;
+  document.getElementById('card5Desc').textContent = langData[currentLang].buildDesc;
+  
+  // Stats section
+  document.getElementById('statsTitle').textContent = langData[currentLang].stats;
+  
+  // Testimonials section
+  document.getElementById('testimonialsTitle').textContent = langData[currentLang].battlelog;
+  document.getElementById('testimonialsSubtitle').textContent = langData[currentLang].whispers;
+  
+  // Pricing section
+  document.getElementById('pricingTitle').textContent = langData[currentLang].vendor;
+  document.getElementById('coachingSessionTitle').textContent = langData[currentLang].coaching_session;
+  document.getElementById('customServicesTitle').textContent = langData[currentLang].custom_services;
+  
+  // Contact section
+  document.getElementById('contactTitle').textContent = langData[currentLang].ready;
+  document.getElementById('contactText').textContent = langData[currentLang].atlas;
+  document.getElementById('contactCTA').textContent = langData[currentLang].contact_now;
 }
 
 const langToggle = document.getElementById('langToggle');
 langToggle.addEventListener('click', toggleLanguage);
 </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e12f794008376b3',t:'MTc3NDMyNjkwNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e130ac53102b78b',t:'MTc3NDMyNzY5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
